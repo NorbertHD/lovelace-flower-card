@@ -67,8 +67,8 @@ export const renderAttributes = (card: FlowerCard): TemplateResult[] => {
                 uomt[elem] = unit_of_measurement;
                 uom[elem] = unit_of_measurement;
                 if (elem === "dli") {
-                    uomt["dli"] = "mol/d⋅m²";
-                    uom["dli"] = '<math style="display: inline-grid;" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mfrac><mrow><mn>mol</mn></mrow><mrow><mn>d</mn><mn>⋅</mn><msup><mn>m</mn><mn>2</mn></msup></mrow></mfrac></mrow></math>';
+                    uomt["dli"] = "mol/(m²⋅d)";
+                    uom["dli"] = '<math style="display: inline-grid;" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mfrac><mrow><mn>mol</mn></mrow><mrow><msup><mn>m</mn><mn>2</mn></msup><mo>⋅</mo><mn>d</mn></mrow></mfrac></mrow></math>';
                 }
                 displayed[elem] = { name: elem, current, limits: limits[`max_${elem}`], icon, sensor, unit_of_measurement, display_state };
             }
@@ -87,7 +87,7 @@ export const renderAttribute = (card: FlowerCard, attr: DisplayedAttribute) => {
     const display_val = attr.display_state;
     const pct = 100 * Math.max(0, Math.min(1, (val - min) / (max - min)));
     const toolTipText = aval ? `${attr.name}: ${val} ${unitTooltip}<br>(${min} ~ ${max} ${unitTooltip})` : card._hass.localize('state.default.unavailable');
-    const label = attr.name === 'dli' ? '<math style="display: inline-grid;" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mfrac><mrow><mn>mol</mn></mrow><mrow><mn>d</mn><mn>⋅</mn><msup><mn>m</mn><mn>2</mn></msup></mrow></mfrac></mrow></math>' : unitTooltip
+    const label = attr.name === 'dli' ? '<math style="display: inline-grid;" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mfrac><mrow><mn>mol</mn></mrow><mrow><msup><mn>m</mn><mn>2</mn></msup><mo>⋅</mo><mn>d</mn></mrow></mfrac></mrow></math>' : unitTooltip
     const attributeCssClass = `attribute tooltip ${card.config.display_type === DisplayType.Compact ? 'width-100' : ''}`;
 
     // console.debug(
