@@ -1,8 +1,11 @@
-import { customElement, html } from "lit-element";
+import { html } from 'lit';
+import { customElement } from "lit/decorators.js";
 import { DisplayType } from "./types/flower-card-types";
 import { default_show_bars, plantAttributes } from "./utils/constants";
 import EditorForm from "@marcokreeft/ha-editor-formbuilder";
 import { FormControlType } from "@marcokreeft/ha-editor-formbuilder/dist/interfaces";
+import { getEntitiesByDomain } from "@marcokreeft/ha-editor-formbuilder/dist/utils/entities";
+import { getEntitiesByDeviceClass } from "@marcokreeft/ha-editor-formbuilder/dist/utils/entities";
 
 @customElement('flower-card-editor')
 export class FlowerCardEditor extends EditorForm {
@@ -17,8 +20,8 @@ export class FlowerCardEditor extends EditorForm {
             this._config.show_bars = default_show_bars;
         }
 
-        const plantsList = this.getEntitiesByDomain('plant');
-        const batteryList = this.getEntitiesByDeviceClass("sensor", "battery");
+        const plantsList = getEntitiesByDomain(this._hass, 'plant');
+        const batteryList = getEntitiesByDeviceClass(this._hass, "sensor", "battery");
 
         return this.renderForm([
             { controls: [{ label: "Display Type", configValue: "display_type", type: FormControlType.Radio, items: [
